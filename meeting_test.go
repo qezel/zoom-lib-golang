@@ -29,7 +29,7 @@ func TestListMeetings(t *testing.T) {
 	}
 }
 
-func TestCreateGetDeleteMeeting(t *testing.T) {
+func TestCreateGetUpdateDeleteMeeting(t *testing.T) {
 	var (
 		apiKey      = os.Getenv("ZOOM_API_KEY")
 		apiSecret   = os.Getenv("ZOOM_API_SECRET")
@@ -68,11 +68,26 @@ func TestCreateGetDeleteMeeting(t *testing.T) {
 		t.Fatalf("got error getting meeting: %+v\n", err)
 	}
 
+	updatedTopic := "This is an updated topic"
+	meeting, err = UpdateMeeting(UpdateMeetingOptions{
+		MeetingID: meeting.ID,
+		DataParameters: UpdateMeetingDataParameters{
+			Topic: updatedTopic,
+		},
+	})
+	if err != nil {
+		t.Fatalf("got error updating meeting: %+v\n", err)
+	}
+
+	if meeting.Topic != updatedTopic {
+		t.Fatalf("expected %s, got %s\n", updatedTopic, meeting.Topic)
+	}
+
 	err = DeleteMeeting(DeleteMeetingOptions{
 		MeetingID: meeting.ID,
 	})
 	if err != nil {
-		t.Fatalf("got error getting meeting: %+v\n", err)
+		t.Fatalf("got error deleting meeting: %+v\n", err)
 	}
 }
 

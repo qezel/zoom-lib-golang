@@ -106,8 +106,6 @@ func TestValidDate(t *testing.T) {
 }
 
 func TestDateToString(t *testing.T) {
-	t.Skip("Can't quite get this to marshal to 2006-01-02")
-
 	type structure struct {
 		Date Date `json:"date"`
 	}
@@ -116,7 +114,7 @@ func TestDateToString(t *testing.T) {
 		expected = []byte(`{"date":"` + todayStr + `"}`)
 	)
 
-	actual, err := json.Marshal(struc)
+	actual, err := json.Marshal(&struc)
 	if err != nil {
 		t.Errorf("got err marshaling json: %s\n", err)
 	}
