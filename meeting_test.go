@@ -61,15 +61,8 @@ func TestCreateGetUpdateDeleteMeeting(t *testing.T) {
 		t.Fatalf("got error creating meeting: %+v\n", err)
 	}
 
-	meeting, err = GetMeeting(GetMeetingOptions{
-		MeetingID: meeting.ID,
-	})
-	if err != nil {
-		t.Fatalf("got error getting meeting: %+v\n", err)
-	}
-
 	updatedTopic := "This is an updated topic"
-	meeting, err = UpdateMeeting(UpdateMeetingOptions{
+	err = UpdateMeeting(UpdateMeetingOptions{
 		MeetingID: meeting.ID,
 		DataParameters: UpdateMeetingDataParameters{
 			Topic: updatedTopic,
@@ -77,6 +70,13 @@ func TestCreateGetUpdateDeleteMeeting(t *testing.T) {
 	})
 	if err != nil {
 		t.Fatalf("got error updating meeting: %+v\n", err)
+	}
+
+	meeting, err = GetMeeting(GetMeetingOptions{
+		MeetingID: meeting.ID,
+	})
+	if err != nil {
+		t.Fatalf("got error getting meeting: %+v\n", err)
 	}
 
 	if meeting.Topic != updatedTopic {

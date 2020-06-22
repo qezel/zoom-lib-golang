@@ -29,19 +29,18 @@ type UpdateMeetingURLParameters struct {
 const UpdateMeetingPath = "/meetings/%d"
 
 // UpdateMeeting calls PATCH /meetings/{meetingId}
-func UpdateMeeting(opts UpdateMeetingOptions) (Meeting, error) {
+func UpdateMeeting(opts UpdateMeetingOptions) error {
 	return defaultClient.UpdateMeeting(opts)
 }
 
 // UpdateMeeting calls PATCH /meetings/{meetingId}
 // https://marketplace.zoom.us/docs/api-reference/zoom-api/meetings/meetingupdate
-func (c *Client) UpdateMeeting(opts UpdateMeetingOptions) (Meeting, error) {
-	var ret = Meeting{}
-	return ret, c.requestV2(requestV2Opts{
+func (c *Client) UpdateMeeting(opts UpdateMeetingOptions) error {
+	return c.requestV2(requestV2Opts{
 		Method:         Patch,
 		Path:           fmt.Sprintf(UpdateMeetingPath, opts.MeetingID),
 		DataParameters: &opts.DataParameters,
 		URLParameters:  &opts.URLParameters,
-		Ret:            &ret,
+		HeadResponse:   true,
 	})
 }
