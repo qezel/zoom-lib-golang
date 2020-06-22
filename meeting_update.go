@@ -13,6 +13,7 @@ type UpdateMeetingDataParameters struct {
 	Agenda         string          `json:"agenda,omitempty"`
 	Duration       int             `json:"duration,omitempty"`
 	Password       string          `json:"password,omitempty"` // Max 10 characters. [a-z A-Z 0-9 @ - _ *]
+	ScheduleFor    string          `json:"schedule_for,omitempty"`
 	Settings       MeetingSettings `json:"settings,omitempty"`
 	StartTime      *Time           `json:"start_time,omitempty"`
 	Timezone       string          `json:"timezone,omitempty"`
